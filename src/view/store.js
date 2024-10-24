@@ -1,9 +1,12 @@
+import { openModal,closeModal, setProductoActiva } from "../../main.js";
 import { handleGetProductLocalStore } from "../persistence/localStorage.js"
+import { handleRenderTotal } from "../services/products.js";
 
 
 export const handleGetProductsToStore=()=>{
     const productos=handleGetProductLocalStore();
     handleRenderList(productos);
+    handleRenderTotal();
 
 }
 
@@ -55,7 +58,8 @@ export const handleRenderList=(productos)=>{
         productos.forEach((element,index) => {
             const productContainer=document.getElementById(`product-${element.categoria}-${index}`);
             productContainer.addEventListener('click',()=>{
-                console.log("Producto activo",element)
+                setProductoActiva(element);
+                openModal();
             })
 
         });

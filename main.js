@@ -1,22 +1,27 @@
 import { renderCategory } from "./src/services/category.js";
 import{saveInLocalStore} from "./src/persistence/localStorage.js";
 import { handleGetProductsToStore } from "./src/view/store.js";
+import { handleSearchProductByName } from "./src/services/searchBar.js";
+import { getTotal, handleDeleteProduct } from "./src/services/products.js";
+//import Swal from "sweetalert2";
+
+
+export let categoriaActiva=null;
+
+export const setCategoriaActiva=(categoria)=>{
+    categoriaActiva=categoria;
+}
+
+export let productoActivo=null;
+
+export const setProductoActiva=(producto)=>{
+    productoActivo=producto;
+}
 
 handleGetProductsToStore();
 renderCategory();
 
-export let categoriaActive=null;
 
-
-export const setCategoriaActiva=(categoria)=>{
-    categoriaActive=categoria;
-}
-export let productoActive=null;
-
-
-export const setProductoActiva=(producto)=>{
-    productoActive=producto;
-}
 //PopUP
 const buttonAdd=document.getElementById("buttonAdd");
 const buttonCancel=document.getElementById("cancelButton");
@@ -30,14 +35,35 @@ buttonAdd.addEventListener('click',()=>{
 })
 
 //Abrir y cerrar modal
-const openModal=()=>{
+export const openModal=()=>{
     const modal=document.getElementById("modalPopUP");
     modal.style.display="flex";
+    const buttonDelete=document.getElementById("deleteButton");
+    
+    if(productoActivo){
+        const nombre=document.getElementById("nombre");
+        const img=document.getElementById("img");
+        const precio=document.getElementById("precio");
+        const categoria=document.getElementById("categoria");
+        nombre.value=productoActivo.nombre;
+        img.value=productoActivo.img;
+        precio.value=productoActivo.precio;
+        categoria.value=productoActivo.categoria;
+    }
+    if(productoActivo){
+        buttonDelete.style.display="block";
+        
+    }else{
+        buttonDelete.style.display="none";
+    }
+
+    
 }
 
-const closeModal=()=>{
+ export const closeModal=()=>{
     const modal=document.getElementById("modalPopUP");
     modal.style.display="none";
+    setProductoActiva(null);
     resetModal();
 }
 const resetModal=()=>{
@@ -50,12 +76,18 @@ const resetModal=()=>{
     precio.value=0;
     categoria.value="none";
 }
-const form = document.getElementById("productForm");
 
-  form.addEventListener('submit', (event) => {
-    event.preventDefault(); // Previene el comportamiento predeterminado (envío del formulario)
+const buttonAccept = document.getElementById("acceptButton");
+
+buttonAccept.addEventListener('click', () => {
     handleSaveOrModify();
-  });
+    Swal.fire({
+        title: "Correcto!",
+        text: "Tu articulo a sido guardado",
+        icon: "success"
+    });
+    getTotal();
+});
 
 
 const handleSaveOrModify= ()=>{
@@ -65,9 +97,9 @@ const handleSaveOrModify= ()=>{
     const categoria=document.getElementById("categoria").value;
     
     let object=null;
-    if(productoActive){
+    if(productoActivo){
         object={
-            ...productoActive,
+            ...productoActivo,
             nombre,
             img,
             precio,
@@ -82,9 +114,22 @@ const handleSaveOrModify= ()=>{
             categoria
         }
     }
-    
+   
     saveInLocalStore(object);
-    console.log(object);
     handleGetProductsToStore();
     closeModal();
 }
+
+//Search
+const buttonSearch=document.getElementById("buttonSearch");
+buttonSearch.addEventListener('click',()=>{
+    handleSearchProductByName();
+})
+
+//Delete
+const buttonDelete=document.getElementById("deleteButton");
+buttonDelete.addEventListener('click',()=>{
+   
+    handleDeleteProduct();
+    
+})

@@ -21,7 +21,7 @@
     align-items: center;
 }
 .conteiner_contentAdd{
-    flex: 1;
+    justify-self: flex-end;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -84,6 +84,17 @@
     color: white;
 }
 
+.totalContainer{
+    width: 12vw;
+    height: 2rem;
+    padding: 0.4rem;
+    background-color: #ffff;
+    border: 1px solid black;
+    border-radius: 0.4rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
 
 /* Main */
 
@@ -126,6 +137,10 @@
     border-radius: 0.4rem;
     cursor: pointer;
     
+}
+.listAside ul li:hover{
+    background-color: #4751dd;
+    color: white;
 }
 .liActive{
     background-color: #4751dd;
@@ -183,6 +198,11 @@
     border: 1px solid black;
     border-radius: 0.4rem;
     box-shadow: 2px 2px 5px 5px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s;
+    cursor: pointer;
+}
+.containerItem:hover{
+    transform: scale(1.1);
 }
 .containerItem h2{
     font-size: 2.5vh;
@@ -252,4 +272,16 @@
 }
 .delete{
     background-color: rgb(255, 25, 25);
+}
+
+/* Querry */
+@media screen and (min-width:1200px){
+    .containerProductStore{
+        grid-template-columns: repeat(4,0.6fr);
+        gap:2vh;
+    }
+    .containerItem{
+        width: 16vw;
+        
+    }
 }

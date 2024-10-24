@@ -14,13 +14,15 @@
       <div class="conteiner_Header">
         
           <div class="header_Search">
-            <input class="input_Header" type="text" placeholder="Ingrese un elemento">
-            <button class="button_Search button">Buscar <span class="material-symbols-outlined">
+            <input class="input_Header" id="inputHeader" type="text" placeholder="Ingrese un elemento">
+            <button class="button_Search button" id="buttonSearch">Buscar <span class="material-symbols-outlined">
               search
               </span></button>
             
           </div>
-        
+          <div class="totalContainer" id="totalContainer">
+            
+          </div>
           <div class="conteiner_contentAdd">
             <button id="buttonAdd" class="button_Add button">Agregar Elemento</button>
           </div>
@@ -46,7 +48,7 @@
         </div>
       </div>
       <div class="popUPContainer_principal" id="modalPopUP">
-        <form class="popUPContainer" id="productForm">
+        <div class="popUPContainer" id="productForm">
           <div class="container_title_popUP">
             <h2>Agregar o modifcar un producto</h2>
           </div>
@@ -65,12 +67,14 @@
 
           <div class="container_buttonsPopUP">
             <button class="buttonPopUP cancel" id="cancelButton">Cancelar</button>
-            <button type="submit" class="buttonPopUP accept" id="acceptButton">Aceptar</button>
+            <button class="buttonPopUP accept" id="acceptButton">Aceptar</button>
             <button class="buttonPopUP delete" id="deleteButton">Eliminar</button>
           </div>
-        </form>
+        </div>
       </div>
     </main>
     <script type="module" src="/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   </body>
 </html>
